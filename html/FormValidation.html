@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px auto;
+            padding: auto;
+        }
+
+        .input {
+            width: 350px;
+        }
+
+        tr {
+            margin-top: 5px;
+            padding-top: 10px;
+        }
+    </style>
+    <script>
+        function ktraTenDN() {
+            var re = /^[a-zA-Z]/;
+            if (re.test(document.getElementById("txttk").value.trim()) == false) {
+                sptk.innerText = "* bắt buộc, bắt đầu bằng ký tự";
+                return false;
+            } else {
+                sptk.innerText = " *";
+                return true;
+            }
+        }
+
+        function ktraMK() {
+            var re = /(?=.*\d).{6,}/;
+            if (re.test(document.getElementById("txtpass").value.trim()) == false) {
+                spmk.innerText = "* phải có chữ, số, ít nhất 6 ký tự";
+                return false;
+            } else {
+                spmk.innerText = " *";
+                return true;
+            }
+        }
+
+        function ktraXNMK() {
+            if (document.getElementById("txtnlpass").value.trim() != document.getElementById("txtpass").value.trim()) {
+                spxnmk.innerText = "* phải giống ô mật khẩu";
+                return false;
+            } else {
+                spxnmk.innerText = " *";
+                return true;
+            }
+        }
+
+        function ktraNS() {
+            var ns = new Date(document.getElementById("txtns").value);
+            var today = new Date();
+
+            if (eval(today.getFullYear() - ns.getFullYear()) <= 10) {
+                spns.innerText = " tuổi phải >10";
+                return false;
+            } else {
+                spns.innerText = "";
+                return true;
+            }
+        }
+
+        function ktraHT() {
+            var re = /(^[a-zA-Z]+)((\s{1}[a-z]+){1,})$/i ;
+            if (re.test(document.getElementById("txtht").value.trim()) == false) {
+                spht.innerText = "* phải là chữ, ít nhất 1 ký tự";
+                return false;
+            } else {
+                spht.innerText = " *";
+                return true;
+            }
+        }
+
+        function ktraDT() {
+            var re = /^[0-9]{10}/;
+            if (re.test(document.getElementById("txtdt").value.trim()) == false) {
+                spdt.innerText = "* phải là 10 số";
+                return false;
+            } else {
+                spdt.innerText = " *";
+                return true;
+            }
+        }
+
+        
+        function submitForm() {
+            if (ktraTenDN() == false || ktraMK() == false || ktraXNMK() == false || ktraHT() == false || ktraNS() == false) {
+                alert("Bạn chưa nhập đầy đủ và đúng thông tin!")
+            } else {
+                var tt1 = document.getElementById("txtht").value;
+                var tt2 = document.getElementById("txtns").value;
+
+                var w = open("FormValidation_info.html", "Ketqua");
+                w.document.write("<B>THONG TIN CA NHAN<B> <br>");
+                w.document.write("Ho ten: " + tt1 + "<br>");
+                w.document.write("Nam sinh: " + tt2 + "<br>");
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h2 style="text-align: center;">DANG KY TAI KHOAN</h2><br>
+    <form name="form1" onsubmit="submitForm()" method="post" action="#">
+        <table>
+            <tbody>
+                <tr>
+                    <td><label for="lblTK">Tên đăng nhập:</label></td>
+                    <td><input type="text" class="input" name="txttk" id="txttk" onblur="ktraTenDN()"
+                            placeholder="Nhập vào tên đăng nhập"><span id="sptk"
+                            style="color: red; width: 300px;">*</span></td>
+                </tr>
+                <tr>
+                    <td><label for="lblpass">Mật khẩu:</label></td>
+                    <td><input type="password" class="input" name="txtpass" id="txtpass" onblur="ktraMK()"
+                            placeholder="Nhập vào mật khẩu"><span id="spmk" style="color: red;">*</span></td>
+                </tr>
+                <tr>
+                    <td><label for="lblnlpass">Nhập lại mật khẩu:</label></td>
+                    <td><input type="password" class="input" name="txtnlpass" id="txtnlpass" onblur="ktraXNMK()"
+                            placeholder="Nhập vào xác nhận mật khẩu"><span id="spxnmk" style="color: red;">*</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <br><br>
+        <h3 style="text-align: center;">THÔNG TIN CÁ NHÂN</h3><br>
+        <table>
+            <tr>
+                <td><label for="lblName">Họ tên:</label></td>
+                <td><input type="text" class="input" name="txtName" id="txtht" onblur="ktraHT()"
+                        placeholder="Nhập vào họ tên (bắt buộc nhập)"><span id="spht" style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td><label for="lblns">Ngày sinh</label></td>
+                <td><input type="date" class="input" name="txtns" id="txtns" onblur="ktraNS()"><span id="spns"
+                        style="color: red;"></span></td>
+            </tr>
+            <tr>
+                <td><label for="lblgt">Giới tính</label></td>
+                <td><input type="radio" name="txtgt" value="Nam">Nam
+                    <input type="radio" name="txtgt" value="Nu">Nu
+                </td>
+            </tr>
+            <tr>
+                <td><label for="lbldc">Địa chỉ:</label></td>
+                <td><input type="text" class="input" name="txtdc" id="txtdc" placeholder="Nhập vào địa chỉ"
+                        onblur="ktraDC()"></td>
+            </tr>
+            <tr>
+                <td><label for="lbldt">Điện thoại:</label></td>
+                <td><input type="text" class="input" name="txtdt" id="txtdt"
+                        placeholder="Nhập vào số điện thoại (9-10 số)" onblur="ktraDT()"><span id="spdt"
+                        style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td><label for="lblemail">Email</label></td>
+                <td><input type="email" class="input" name="txtEmail" id="txtEmail"
+                        placeholder="Nhập vào Email cá nhân theo dạng ten@tencongty.com"><span id="spemail"
+                        style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Đăng ký">
+                    <input type="reset" value="Hủy">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
